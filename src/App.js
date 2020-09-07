@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import MapContainer from './MapContainer';
 import './App.css';
-
-var request = require('request');
+const request = require('request');
 
 const App = () => {
   var url =
