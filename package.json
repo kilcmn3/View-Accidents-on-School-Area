@@ -8,7 +8,8 @@
     "@testing-library/user-event": "^7.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "xml-js": "^1.6.11"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -31,6 +32,5 @@
       "last 1 safari version"
     ]
   },
-    "proxy": "http://apis.data.go.kr"
+  "proxy": "http://apis.data.go.kr"
 }
-
