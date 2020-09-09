@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import MapContainer from './MapContainer';
 import './App.css';
-var xhr = new XMLHttpRequest();
 
 const App = () => {
-  var url =
-    'http://apis.data.go.kr/B552061/schoolzoneChild/getRestSchoolzoneChild'; /*URL*/
+  var url = '/B552061/schoolzoneChild/getRestSchoolzoneChild'; /*URL*/
   var queryParams =
     '?' +
     encodeURIComponent('ServiceKey') +
@@ -15,7 +13,7 @@ const App = () => {
     '&' +
     encodeURIComponent('ServiceKey') +
     '=' +
-    encodeURIComponent('인증키(URL Encode)'); /**/
+    encodeURIComponent(`${process.env.REACT_APP_DATA_API}(URL Encode)`); /**/
   queryParams +=
     '&' +
     encodeURIComponent('searchYearCd') +
@@ -31,25 +29,14 @@ const App = () => {
     '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
   queryParams +=
     '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
-
   //calling on every render
   useEffect(() => {
-    xhr.open('GET', url + queryParams);
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4) {
-        console.log(
-          'Status: ' +
-            this.status +
-            'nHeaders: ' +
-            JSON.stringify(this.getAllResponseHeaders()) +
-            'nBody: ' +
-            this.responseText
-        );
-      }
-    };
-
-    xhr.send('');
+    fetch(`${url}` + `${queryParams}`)
+      .then((response) => response.text())
+      .then((str) => new window.DOMParser().parseFromString(str, 'text/xml'))
+      .then((data) => console.log(data));
   });
+
   return (
     <div className='App'>
       <MapContainer />
