@@ -29,6 +29,7 @@ const App = () => {
     '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
   queryParams +=
     '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
+
   //calling on every render
   useEffect(() => {
     fetch(`${url}` + `${queryParams}`)
