@@ -21,6 +21,14 @@ const MapContainer = () => {
         };
 
         const map = new window.kakao.maps.Map(container, options); //Instance of new map
+
+        //The coordinates of the marker
+        const marketPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+
+        //creat a marker
+        const marker = new kakao.maps.Marker({ position: marketPosition });
+
+        marker.setMap(map);
       });
     };
   }, []);

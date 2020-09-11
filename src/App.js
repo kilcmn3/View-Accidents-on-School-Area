@@ -14,7 +14,7 @@ const App = () => {
   //     .then((response) => response.text()) //data return by xml form.
   //     .then((str) => new window.DOMParser().parseFromString(str, 'text/xml')) // using build-in paraser to convert xml to text.
   //     .then((data) => console.log(data));
-  // }
+  // });
 
   //Method 2.
 
@@ -26,12 +26,15 @@ const App = () => {
         let convert2json = JSON.parse(
           convert.xml2json(str, { compact: true, spaces: 2 })
         );
-        let polygonDatas = JSON.parse(
+        //setState polygon datas
+        let polygonData = JSON.parse(
           convert2json.response.body.items.item.geom_json._text
         ).coordinates[0];
+        setPolygon(polygonData);
       });
-  });
+  }, []); //need to clean up before mounting, []
 
+  console.log(usePolygon);
   return (
     <div className='App'>
       <MapContainer />
