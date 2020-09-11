@@ -1,41 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import MapContainer from './MapContainer';
+import { queryParams, url } from './queryParams';
 import './App.css';
 
+const convert = require('xml-js');
+
 const App = () => {
-  var url = '/B552061/schoolzoneChild/getRestSchoolzoneChild'; /*URL*/
-  var queryParams =
-    '?' +
-    encodeURIComponent('ServiceKey') +
-    '=' +
-    process.env.REACT_APP_DATA_API; /*Service Key*/
-  queryParams +=
-    '&' +
-    encodeURIComponent('ServiceKey') +
-    '=' +
-    encodeURIComponent(`${process.env.REACT_APP_DATA_API}(URL Encode)`); /**/
-  queryParams +=
-    '&' +
-    encodeURIComponent('searchYearCd') +
-    '=' +
-    encodeURIComponent('2015'); /**/
-  queryParams +=
-    '&' + encodeURIComponent('siDo') + '=' + encodeURIComponent('11'); /**/
-  queryParams +=
-    '&' + encodeURIComponent('guGun') + '=' + encodeURIComponent('320'); /**/
-  queryParams +=
-    '&' + encodeURIComponent('type') + '=' + encodeURIComponent('xml'); /**/
-  queryParams +=
-    '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
-  queryParams +=
-    '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
+  const [usePolygon, setPolygon] = useState({});
+
+  //Method 1.
+  // useEffect(() => {
+  //   fetch(`${url}` + `${queryParams}`)
+  //     .then((response) => response.text()) //data return by xml form.
+  //     .then((str) => new window.DOMParser().parseFromString(str, 'text/xml')) // using build-in paraser to convert xml to text.
+  //     .then((data) => console.log(data));
+  // }
+
+  //Method 2.
 
   //calling on every render
   useEffect(() => {
     fetch(`${url}` + `${queryParams}`)
       .then((response) => response.text())
-      .then((str) => new window.DOMParser().parseFromString(str, 'text/xml'))
-      .then((data) => console.log(data));
+      .then((str) => {
+        let convert2json = JSON.parse(
+          convert.xml2json(str, { compact: true, spaces: 2 })
+        );
+        let polygonDatas = JSON.parse(
+          convert2json.response.body.items.item.geom_json._text
+        ).coordinates[0];
+      });
   });
 
   return (
