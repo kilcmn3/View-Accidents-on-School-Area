@@ -34,10 +34,9 @@ const App = () => {
       });
   }, []); //need to clean up before mounting, []
 
-  console.log(usePolygon);
   return (
     <div className='App'>
-      <MapContainer />
+      <MapContainer coordinates={usePolygon} />
     </div>
   );
 };
