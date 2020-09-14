@@ -2,54 +2,62 @@
 import React, { useEffect } from 'react';
 
 const MapContainer = (props) => {
-  const script = document.createElement('script');
-  script.async = true;
-  script.src =
-    'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' +
-    process.env.REACT_APP_KAKAO_API +
-    '&autoload=false';
-  document.head.appendChild(script);
-  useEffect(() => {
-    script.onload = () => {
-      kakao.maps.load(() => {
-        const container = document.getElementById('map');
-        const options = {
-          //Basice option that require to load the map on brower
-          center: new kakao.maps.LatLng(33.450701, 126.570667), //The map coordinates.
-          level: 3, //Zoom leve
-        };
+  //List of marker's position and title of that place.
 
-        const map = new window.kakao.maps.Map(container, options); //Instance of new map
-      });
+  useEffect(() => {
+    const container = document.getElementById('map');
+    const options = {
+      //Basice option that require to load the map on brower
+      center: new kakao.maps.LatLng(33.450701, 126.570667), //The map coordinates.
+      level: 3, //Zoom leve
     };
+    const map = new window.kakao.maps.Map(container, options); //Instance of new map
+    for (var i = 0; i < positions.length; i++) {
+      // 마커를 생성합니다
+      var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커를 표시할 위치
+        title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+      });
+    }
   }, []);
 
   //The coordinates of the marker
   // const marketPosition = new kakao.maps.LatLng(33.450701, 126.570667);
 
-  //List of marker's position and title of that place.
-  const positions = (data) => {
-    const marketContainer = [];
-    data = props.coordinates;
-    console.log('inside the position');
-    for (let i = 0; i < data.length; i++) {
-      let position = new Object();
-      position.latlng = new kakao.maps.Latlng(data[i][0], data[i][1]);
-      marketContainer.push(position);
-    }
-    return marketContainer;
-  };
+  // const positions = (data) => {
+  //   const marketContainer = [];
+  //   data = props.coordinates;
+  //   console.log('inside the position');
+  //   for (let i = 0; i < data.length; i++) {
+  //     let position = new Object();
+  //     position.latlng = new kakao.maps.Latlng(data[i][0], data[i][1]);
+  //     marketContainer.push(position);
+  //   }
+  //   return marketContainer;
+  // };
 
   //creat a marker
-  for (let i = 0; i < positions().length; i++) {
-    const marker = new kakao.maps.Marker({
-      map: map, //This will shows the marker on the map
-      position: positions()[i].latlng,
-      title: positions()[i].title,
-    });
-  }
+  var positions = [
+    {
+      title: '카카오',
+      latlng: new kakao.maps.LatLng(33.450705, 126.570677),
+    },
+    {
+      title: '생태연못',
+      latlng: new kakao.maps.LatLng(33.450936, 126.569477),
+    },
+    {
+      title: '텃밭',
+      latlng: new kakao.maps.LatLng(33.450879, 126.56994),
+    },
+    {
+      title: '근린공원',
+      latlng: new kakao.maps.LatLng(33.451393, 126.570738),
+    },
+  ];
 
-  console.log(props.coordinates);
+  // console.log(props.coordinates);
   return <div id='map'></div>;
 };
 
