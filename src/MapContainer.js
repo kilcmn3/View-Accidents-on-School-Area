@@ -3,36 +3,40 @@ import React, { useEffect } from 'react';
 
 const MapContainer = (props) => {
   useEffect(() => {
-    console.log('this is inside useEffect', props.coordinates);
+    mapScript(props.coordinates);
+  }, [props.coordinates]);
+
+  //The coordinates of the marker
+  // const marketPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+  const mapScript = (coordinates) => {
     const container = document.getElementById('map');
     const options = {
       //Basice option that require to load the map on brower
       center: new kakao.maps.LatLng(33.450701, 126.570667), //The map coordinates.
       level: 3, //Zoom leve
     };
-    const map = new window.kakao.maps.Map(container, options); //Instance of new map
-    for (var i = 0; i < positions(props.coordinates).length; i++) {
+
+    const map = new kakao.maps.Map(container, options); //Instance of new map
+
+    const positions = (data) => {
+      const marketContainer = [];
+      for (let i = 0; i < data.length; i++) {
+        let position = new Object();
+        // debugger;
+        position.latlng = new kakao.maps.LatLng(data[i][0], data[i][1]);
+        marketContainer.push(position);
+      }
+      console.log(marketContainer);
+      return marketContainer;
+    };
+
+    for (var i = 0; i < positions(coordinates).length; i++) {
       // 마커를 생성합니다
       var marker = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
-        position: positions(props.coordinates)[i].latlng, // 마커를 표시할 위치
-        title: positions(props.coordinates)[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        position: positions(coordinates)[i].latlng, // 마커를 표시할 위치
       });
     }
-  }, []);
-
-  //The coordinates of the marker
-  // const marketPosition = new kakao.maps.LatLng(33.450701, 126.570667);
-
-  const positions = (data) => {
-    const marketContainer = [];
-    console.log('inside the position', data);
-    for (let i = 0; i < data.length; i++) {
-      let position = new Object();
-      position.latlng = new kakao.maps.Latlng(data[i][0], data[i][1]);
-      marketContainer.push(position);
-    }
-    return marketContainer;
   };
 
   //creat a marker
@@ -55,7 +59,6 @@ const MapContainer = (props) => {
   //   },
   // ];
 
-  console.log(props.coordinates);
   return <div id='map'></div>;
 };
 
