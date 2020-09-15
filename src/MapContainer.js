@@ -1,4 +1,3 @@
-import { cleanup } from '@testing-library/react';
 /*global kakao*/
 import React, { useEffect } from 'react';
 
@@ -18,8 +17,6 @@ const MapContainer = (props) => {
       ? 126.57063
       : props.coordinates[0][0];
 
-    console.log(latitude);
-    console.log(longitude);
     const container = document.getElementById('map');
     const options = {
       //Basice option that require to load the map on brower
@@ -29,27 +26,25 @@ const MapContainer = (props) => {
 
     const map = new kakao.maps.Map(container, options); //Instance of new map
 
-    // const positions = (data) => {
-    //   if (!data.length) return false;
-    //   const marketContainer = data.map((coordinate) => {
-    //     let position = new Object();
-    //     position.latlng = new kakao.maps.LatLng(coordinate[0], coordinate[1]);
-    //     console.log(position.latlng);
-    //     return position;
-    //   });
-    //   // console.log(marketContainer);
-    //   return marketContainer;
-    // };
+    const positions = (data) => {
+      if (!data.length) return false;
+      const marketContainer = data.map((coordinate) => {
+        let position = new Object();
+        position.latlng = new kakao.maps.LatLng(coordinate[1], coordinate[0]);
+        console.log(coordinate[1], coordinate[0]);
+        return position;
+      });
+      // console.log(marketContainer);
+      return marketContainer;
+    };
 
-    // // if (!positions(coordinates)) return;
-
-    // for (var i = 0; i < positions(coordinates).length; i++) {
-    //   // 마커를 생성합니다
-    //   var marker = new kakao.maps.Marker({
-    //     map: map, // 마커를 표시할 지도
-    //     position: positions(coordinates)[i].latlng, // 마커를 표시할 위치
-    //   });
-    // }
+    for (var i = 0; i < positions(coordinates).length; i++) {
+      // create the marker
+      var marker = new kakao.maps.Marker({
+        map: map, // the position of the marker on the mpa.
+        position: positions(coordinates)[i].latlng, // the coordinates of the marker.
+      });
+    }
   };
 
   //creat a marker
