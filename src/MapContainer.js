@@ -1,18 +1,32 @@
+import { cleanup } from '@testing-library/react';
 /*global kakao*/
 import React, { useEffect } from 'react';
 
 const MapContainer = (props) => {
+  let mounted = true;
   useEffect(() => {
-    mapScript(props.coordinates);
+    if (mounted) {
+      mapScript(props.coordinates);
+    }
+    return function cleanup() {
+      return (mounted = false);
+    };
   }, [props.coordinates]);
 
   //The coordinates of the marker
   // const marketPosition = new kakao.maps.LatLng(33.450701, 126.570667);
   const mapScript = (coordinates) => {
+    const latitude = !Object.entries(props.coordinates).length
+      ? 33.450701
+      : props.coordinates[0][0];
+    const longitude = !Object.entries(props.coordinates).length
+      ? 126.57063
+      : props.coordinates[0][1];
+
     const container = document.getElementById('map');
     const options = {
       //Basice option that require to load the map on brower
-      center: new kakao.maps.LatLng(33.450701, 126.570667), //The map coordinates.
+      center: new kakao.maps.LatLng(latitude, longitude), //The map coordinates.
       level: 3, //Zoom leve
     };
 
