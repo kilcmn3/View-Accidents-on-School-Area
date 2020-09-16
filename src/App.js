@@ -3,10 +3,6 @@ import MapContainer from './MapContainer';
 import { queryParams, url } from './queryParams';
 import './App.css';
 
-const express = require('express');
-const app = express();
-const port = 4000;
-
 const convert = require('xml-js');
 
 const App = () => {
@@ -46,13 +42,6 @@ const App = () => {
   //     .then((data) => console.log(data));
   // }, []);
 
-  app.get('/', (req, res) => {
-    res.send('Hello world!');
-  });
-
-  app.listen(port, () => {
-    console.log('example app listening at http//localsdosij');
-  });
   return (
     <div className='App'>
       <MapContainer coordinates={usePolygon} />
