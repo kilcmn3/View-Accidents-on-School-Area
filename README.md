@@ -11,5 +11,8 @@
     
     2. Fetching from data.go.kr only return data by XML format. Alternately using npm-xml--js to solve this issue. This package allow xml-data to convert as json object.
 
+    3. without using expressJS, fetching is not working due to 'no-cors' origin. 
+
 # Improvement 
     1. Two fetch one from App.js and from MapContainer. Was it really necessary? 
+    2. Instead fetching with XML, better to use JOSN if data is applicable.
