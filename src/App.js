@@ -3,6 +3,10 @@ import MapContainer from './MapContainer';
 import { queryParams, url } from './queryParams';
 import './App.css';
 
+const express = require('express');
+const app = express();
+const port = 4000;
+
 const convert = require('xml-js');
 
 const App = () => {
@@ -36,13 +40,19 @@ const App = () => {
   // }, []); //need to clean up before mounting, []
 
   //Fetching with JSON datas
-  useEffect(() => {
-    fetch(url)
-      .then((response) => JSON.stringify(response))
-      .then((data) => console.log(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch(url)
+  //     .then((response) => JSON.stringify(response))
+  //     .then((data) => console.log(data));
+  // }, []);
 
-  console.log(url);
+  app.get('/', (req, res) => {
+    res.send('Hello world!');
+  });
+
+  app.listen(port, () => {
+    console.log('example app listening at http//localsdosij');
+  });
   return (
     <div className='App'>
       <MapContainer coordinates={usePolygon} />
