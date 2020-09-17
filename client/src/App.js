@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MapContainer from './MapContainer';
-import { queryParams, url } from './queryParams';
+
 import './App.css';
 
 const convert = require('xml-js');
@@ -38,9 +38,15 @@ const App = () => {
   //Fetching with JSON datas
   // useEffect(() => {
   //   fetch(url)
-  //     .then((response) => JSON.stringify(response))
+  //     .then((response) => response.json())
   //     .then((data) => console.log(data));
   // }, []);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/')
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
 
   return (
     <div className='App'>

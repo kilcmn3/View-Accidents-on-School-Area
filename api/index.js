@@ -14,6 +14,4 @@ app.get('/', (req, res) => {
   res.json({ username: 'Hello' });
 });
 
-app.listen(port, () => {
-  console.log(`example app listening at http://localhost:${port}`);
-});
+app.listen(port);
