@@ -19,20 +19,28 @@ const App = () => {
   //Method 2.
 
   //calling on every render
-  useEffect(() => {
-    fetch(`${url}` + `${queryParams}`)
-      .then((response) => response.text())
-      .then((str) => {
-        let convert2json = JSON.parse(
-          convert.xml2json(str, { compact: true, spaces: 2 })
-        );
-        //setState polygon datas
-        let polygonData = JSON.parse(
-          convert2json.response.body.items.item.geom_json._text
-        ).coordinates[0];
-        setPolygon(polygonData);
-      });
-  }, []); //need to clean up before mounting, []
+  //Fetching with XML datas
+  // useEffect(() => {
+  //   fetch(`${url}` + `${queryParams}`)
+  //     .then((response) => response.text())
+  //     .then((str) => {
+  //       let convert2json = JSON.parse(
+  //         convert.xml2json(str, { compact: true, spaces: 2 })
+  //       );
+  //       //setState polygon datas
+  //       let polygonData = JSON.parse(
+  //         convert2json.response.body.items.item.geom_json._text
+  //       ).coordinates[0];
+  //       setPolygon(polygonData);
+  //     });
+  // }, []); //need to clean up before mounting, []
+
+  //Fetching with JSON datas
+  // useEffect(() => {
+  //   fetch(url)
+  //     .then((response) => JSON.stringify(response))
+  //     .then((data) => console.log(data));
+  // }, []);
 
   return (
     <div className='App'>
