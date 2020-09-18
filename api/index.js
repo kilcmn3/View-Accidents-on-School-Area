@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const fetch = require('node-fetch');
 const app = express();
@@ -10,12 +12,11 @@ const url =
   '&searchYearCd=2015&siDo=11&guGun=320&type=json&numOfRows=10&pageNo=1&';
 
 app.use(cors());
-console.log(process.env.REACT_APP_DATA_API);
+
 app.get('/', (req, res) => {
-  res.send(`${process.env.REACT_APP_DATA_API}`);
-  // fetch(url)
-  //   .then((response) => response.json())
-  //   .then((data) => res.send({ data }));
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => res.send({ data }));
 });
 
 app.listen(port);
