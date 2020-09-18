@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MapContainer from './MapContainer';
-
 import './App.css';
-
-const convert = require('xml-js');
 
 const App = () => {
   const [usePolygon, setPolygon] = useState({});
@@ -45,7 +42,10 @@ const App = () => {
   useEffect(() => {
     fetch('http://localhost:4000/')
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        let map = JSON.parse(data['geom_json']);
+        setPolygon(map.coordinates[0]);
+      });
   }, []);
 
   return (

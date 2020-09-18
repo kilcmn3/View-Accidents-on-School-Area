@@ -2,9 +2,9 @@
 import React, { useEffect } from 'react';
 
 const MapContainer = (props) => {
-  let mounted = true;
   useEffect(() => {
     mapScript(props.coordinates);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.coordinates]);
 
   //The coordinates of the marker
@@ -31,7 +31,6 @@ const MapContainer = (props) => {
       const marketContainer = data.map((coordinate) => {
         let position = new Object();
         position.latlng = new kakao.maps.LatLng(coordinate[1], coordinate[0]);
-        console.log(coordinate[1], coordinate[0]);
         return position;
       });
       // console.log(marketContainer);
