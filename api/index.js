@@ -11,7 +11,9 @@ const url =
 app.use(cors());
 
 app.get('/', (req, res) => {
-  res.json({ username: 'Hello' });
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => res.send({ data }));
 });
 
 app.listen(port);
