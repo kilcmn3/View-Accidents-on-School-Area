@@ -16,7 +16,7 @@ app.use(cors());
 app.get('/', (req, res) => {
   fetch(url)
     .then((response) => response.json())
-    .then((data) => res.send({ data }));
+    .then((data) => res.send(data.items.item[0]));
 });
 
 app.listen(port);
