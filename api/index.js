@@ -1,4 +1,5 @@
 const express = require('express');
+const fetch = require('node-fetch');
 const app = express();
 const port = 4000;
 const cors = require('cors');
@@ -11,9 +12,11 @@ const url =
 app.use(cors());
 
 app.get('/', (req, res) => {
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => res.send({ data }));
+  res.send(`${process.env.REACT_APP_DATA_API}`);
+
+  // fetch(url)
+  //   .then((response) => response.json())
+  //   .then((data) => res.send({ data }));
 });
 
 app.listen(port);
