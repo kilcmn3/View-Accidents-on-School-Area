@@ -13,6 +13,6 @@
 
     3. without using expressJS, fetching is not working due to 'no-cors' origin. 
 
-# Improvement 
+# Things to Improve
     1. Two fetch one from App.js and from MapContainer. Was it really necessary? 
     2. Instead fetching with XML, better to use JOSN if data is applicable.
