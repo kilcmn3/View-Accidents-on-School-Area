@@ -16,3 +16,4 @@
 # Things to Improve
     1. Two fetch one from App.js and from MapContainer. Was it really necessary? 
     2. Instead fetching with XML, better to use JOSN if data is applicable.
+    3. Better if there was blueprint for the apps.
